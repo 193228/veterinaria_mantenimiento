@@ -172,7 +172,7 @@ class _LoginState extends State<Login> {
 
 void login(String user, String password) async {
       Map<String, String> body = {
-      'user1': user,
+      'user': user,
       'password': password
     };
 
