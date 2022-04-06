@@ -20,4 +20,7 @@ class ColorsSelect {
 
   static HexColor tile = HexColor("#1E2E41");
 
+  static const Color splashColor = Color(0xFF76aB56);
+
+  static const Color mailRounded = Color(0xff64686f);
 }

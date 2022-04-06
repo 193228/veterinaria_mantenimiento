@@ -1,5 +1,6 @@
 import 'package:conexion_veterinaria/pages/add_usuario.dart';
 import 'package:conexion_veterinaria/pages/listadoUsuarios.dart';
+import 'package:conexion_veterinaria/pages/login.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,8 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login',
-      initialRoute: 'listadoUsuarios',
+      initialRoute: 'login',
       routes: {
+        'login': (context) => const Login(),
+        //Agregar vistas para empleados y para dueños
         'listadoUsuarios': (BuildContext context) => listaUser(),
         'agregarUsuario': (BuildContext context) => addUser(),
       },
