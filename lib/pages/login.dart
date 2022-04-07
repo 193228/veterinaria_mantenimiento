@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController = TextEditingController();
   final vistaEmpleado='';
   final vistaDuenio='';
-  final ip='192.168.0.4';
+  final ip='10.0.2.2';
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(top: 330),
+                padding: const EdgeInsets.only(top: 250),
                 child: SizedBox(
                   width: size.width - 70,
                   height: 50,
@@ -213,6 +213,7 @@ void login(String user, String password) async {
 
     if (tipoUsuario!=null) {
       if (tipoUsuario=='e') {
+        print("esto");
         // Manda a vista de empleado
         Navigator.pushNamed(context, vistaEmpleado);
       } else {
