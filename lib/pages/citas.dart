@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:mvp/models/modeloCitas.dart';
+import 'package:mvp/src/styles/colors.dart';
 
 class CitasC extends StatefulWidget {
   const CitasC({Key? key}) : super(key: key);
@@ -29,14 +30,14 @@ class _Citas extends State<CitasC> {
       // Appbar
       appBar: AppBar(
         elevation: null,
-        backgroundColor: Colors.black,
+        backgroundColor: ColorsSelect.txtBoHe,
         leading: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, ''); // Agregar ruta valida.
+            Navigator.pop(context);
           },
           child: const Icon(
             FontAwesomeIcons.arrowLeft,
-            color: Colors.white,
+            color: ColorsSelect.paginatorNext,
           ),
         ),
 
@@ -51,7 +52,7 @@ class _Citas extends State<CitasC> {
                 padding: EdgeInsets.symmetric(horizontal:20)
               ),
               Image.asset(
-                'assets/images/petclinic.png',
+                'assets/images/splash.png',
                 height: 45,
               ),  
             ],
@@ -63,34 +64,6 @@ class _Citas extends State<CitasC> {
       body: SingleChildScrollView(
         child: Column (
           children: [
-            // Boton
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 20),
-              width: 200,
-              height: 48,
-              child: ElevatedButton(
-                onPressed: () {}, 
-                child: Column(
-                  children: const[
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 7)
-                    ),
-                    Text(
-                      'Acceder a las APIs',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ]
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(300,48),
-                  primary: Colors.black,
-                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))
-                ),
-              ),
-            ),
             citas(context, _listaCitas)
           ]
         )
@@ -145,6 +118,7 @@ class _Citas extends State<CitasC> {
 
   Container lista(context, _listaMascotas) { //lUEGO LO CAMBIO
     return Container(
+      margin: const EdgeInsets.only(top: 50),
       child: ListView.builder(
         itemCount: _listaMascotas.length,
         itemBuilder: (_, index) => Card(
