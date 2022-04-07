@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'content_onBoarding.dart';
-import 'package:mvp/src/styles/colors.dart';
+import 'package:conexion_veterinaria/styles/colors.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({Key? key}) : super(key: key);
@@ -102,7 +101,7 @@ class _OnBoardingState extends State<OnBoarding> {
         style: TextStyle(
             color: pages ==lengAll
             ? ColorsSelect.btnBackgroundBo1
-            : ColorsSelect.btnTextbo1,
+            : ColorsSelect.btnTextBo1,
             fontWeight: FontWeight.bold,
             fontSize: 14 
           ),
@@ -115,7 +114,7 @@ class _OnBoardingState extends State<OnBoarding> {
           side: BorderSide(color: 
           pages ==lengAll
             ? ColorsSelect.btnBackgroundBo2
-            : ColorsSelect.btnTextbo1,
+            : ColorsSelect.btnTextBo1,
            width: 2),
         ),
       onPressed: () {

@@ -27,7 +27,7 @@ class _listaUser extends State<listaUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: generalAppBar(context, "Lista De Usuarios", "assets/images/splash.png", "agregarUsuario"),
+      appBar: generalAppBar(context, "Lista De Usuarios", "assets/images/splash.png", "login"),
       body: vistaTileUsuarios(context,_listadoUsuarios),
       floatingActionButton: SpeedDial(
           icon: Icons.add,

@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:mvp/src/styles/colors.dart';
-import 'package:mvp/models/mascotas.dart';
+import 'package:conexion_veterinaria/styles/colors.dart';
+import 'package:conexion_veterinaria/models/mascotas.dart';
 import 'package:http/http.dart' as http;
 
 class mascotasForm extends StatelessWidget {

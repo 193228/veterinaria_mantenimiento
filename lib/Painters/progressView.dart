@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvp/src/pages/progressPainter.dart';
+import 'package:conexion_veterinaria/pages/progressPainter.dart';
 import 'dart:ui' as ui;
 import 'dart:async';
 class progressView extends StatefulWidget {
@@ -40,7 +40,7 @@ class  progressViewState extends State <progressView> {
   }
   void toOnboarding()async {
     await Future.delayed(const Duration(milliseconds:2000),(){});
-    Navigator.pushNamed(context, 'inicioHome');
+    Navigator.pushNamed(context, 'login');
   }
   animation(){
     Timer.periodic(const Duration(milliseconds: 80), (timer) {

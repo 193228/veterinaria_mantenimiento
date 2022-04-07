@@ -1,10 +1,11 @@
+import 'package:conexion_veterinaria/dialogs/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
-import 'package:mvp/models/modeloCitas.dart';
-import 'package:mvp/src/styles/colors.dart';
+import '../models/modeloCitas.dart';
+import '../styles/colors.dart';
 
 class CitasC extends StatefulWidget {
   const CitasC({Key? key}) : super(key: key);
@@ -30,14 +31,14 @@ class _Citas extends State<CitasC> {
       // Appbar
       appBar: AppBar(
         elevation: null,
-        backgroundColor: ColorsSelect.txtBoHe,
+        backgroundColor: Colors.black,
         leading: TextButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, ''); // Agregar ruta valida.
           },
           child: const Icon(
             FontAwesomeIcons.arrowLeft,
-            color: ColorsSelect.paginatorNext,
+            color: Colors.white,
           ),
         ),
 
@@ -61,13 +62,12 @@ class _Citas extends State<CitasC> {
       ),
       
       // Cuerpo
-      body: SingleChildScrollView(
-        child: Column (
-          children: [
-            citas(context, _listaCitas)
-          ]
-        )
-      )
+      body: ListTileTheme(
+      contentPadding: EdgeInsets.all(15),
+      style: ListTileStyle.list,
+      dense: true,
+      child: citas(context,_listaCitas),
+      ),
     );
   }
 
@@ -96,6 +96,7 @@ class _Citas extends State<CitasC> {
             cita['tipoServicio'],
             cita['idMascota']));
       }
+      print(citas);
       return citas;
     } else {
       throw Exception("Fallo la conexión");
@@ -107,8 +108,8 @@ class _Citas extends State<CitasC> {
         future: _listaCitas,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final List<Citas> listaDeCitas =
-                snapshot.data ?? <Citas>[]; //user es la lista de usuarios
+            final List<Citas> listaDeCitas =snapshot.data ?? <Citas>[]; //user es la lista de usuarios
+            //return Text(listaDeCitas[0].fecha);
             return lista(context, listaDeCitas);
           }
 
@@ -116,26 +117,47 @@ class _Citas extends State<CitasC> {
         });
   }
 
-  Container lista(context, _listaMascotas) { //lUEGO LO CAMBIO
+  Container lista(context, _listadoUsuario) { //lUEGO LO CAMBIO
     return Container(
-      margin: const EdgeInsets.only(top: 50),
       child: ListView.builder(
-        itemCount: _listaMascotas.length,
-        itemBuilder: (_, index) => Card(
-          margin: const EdgeInsets.all(10),
-          child: ListTile(
-            title: Text(_listaMascotas[index].fecha),
-            subtitle: Text(_listaMascotas[index].hora),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(_listaMascotas[index].tipoServicio),
-                Text(_listaMascotas[index].idMascota),
-              ],
-            ),
+      itemCount: _listadoUsuario.length,
+      itemBuilder: (_, index) => 
+        Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        margin: const EdgeInsets.all(10),
+        elevation: 10,
+        child: ListTile(
+          title: Text(_listadoUsuario[index].fecha),
+          subtitle: Text(_listadoUsuario[index].hora),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      toast("Editar en progreso");
+                      // Citas usuarioEleccion = _listadoUsuario[index];
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => editUser(usuarios: usuarioEleccion))
+                      // );
+                    });
+                  },
+                  icon: Icon(Icons.edit)),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      toast("eliminar en progreso");
+                      //toast("Modulo Inalcanzable, Solo el dueño puede eliminar usuarios");
+                      //eliminarUsuario(context,"http://10.0.2.2:18081/user/delete/",_listadoUsuario[index].idUsuario.toString());
+                    });
+                  },
+                  icon: const Icon(Icons.delete,color: ColorsSelect.paginatorNext)),
+            ],
           ),
         ),
-      )
+      ),
+    ),
     );
   }
 }

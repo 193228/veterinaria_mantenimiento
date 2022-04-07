@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mvp/src/styles/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/gestures.dart';
+import '../styles/colors.dart';
 class Registro extends StatefulWidget {
   const Registro({Key? key}) : super(key: key);
 
