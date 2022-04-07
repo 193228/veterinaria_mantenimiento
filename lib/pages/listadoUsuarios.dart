@@ -4,6 +4,7 @@ import 'package:conexion_veterinaria/pages/editar_usuario.dart';
 import 'package:flutter/material.dart';
 import '../models/users.dart';
 import '../styles/colors.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class listaUser extends StatefulWidget {
   listaUser({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class listaUser extends StatefulWidget {
 
 class _listaUser extends State<listaUser> {
   Future<List<users>>? _listadoUsuarios;
-  final String rutaDestino = "agregarUsuario";
+  var rutaAgregoUser = "agregarUsuario";
+  var rutaAgregoPerson = "agregarDuenio";
 
   @override
   void initState(){
@@ -25,37 +27,85 @@ class _listaUser extends State<listaUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: generalAppBar(context, "Lista De Usuarios", "assets/images/splash.png", "rutaDestino"),
-      body: vistaTileUsuarios(context,_listadoUsuarios,rutaDestino),
-      floatingActionButton: FloatingActionButton(
+      appBar: generalAppBar(context, "Lista De Usuarios", "assets/images/splash.png", "agregarUsuario"),
+      body: vistaTileUsuarios(context,_listadoUsuarios),
+      floatingActionButton: SpeedDial(
+          icon: Icons.add,
+          backgroundColor: Colors.green,
+          children: [
+            SpeedDialChild(
+              child: const Icon(Icons.face),
+              label: 'Agregar Dueño',
+              backgroundColor: Colors.amber,
+              onTap: () {
+                Navigator.pushNamed(context, rutaAgregoPerson);
+              },
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.person),
+              label: 'Agregar Empleado',
+              backgroundColor: Colors.amber,
+              onTap: () {
+                Navigator.pushNamed(context, rutaAgregoUser);
+              },
+            ),
+          ]
+      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      //   floatingActionButton: Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       children: <Widget>[
+      //         FloatingActionButton(
+      //           onPressed: () { //agregar
+      //             print("presiono agregar");
+      //             Navigator.pushNamed(context, rutaAgregoUser);
+      //             setState(() {});
+      //           },
+      //           backgroundColor: Colors.green,
+      //           child: Icon(Icons.add),
+      //         ),
+      //         FloatingActionButton(
+      //           onPressed: () { //agrego duenio
+      //             Navigator.pushNamed(context, rutaAgregoPerson);
+      //             setState(() {});
+      //           },
+      //           backgroundColor: Colors.amber,
+      //           child: Icon(Icons.person_add),
+      //         )
+      //       ],
+      //     ),
+      //   )
+      /*floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, rutaDestino);
             setState(() {});
           },
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
           child: const Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,*/
     );
   }
 
-  ListTileTheme vistaTileUsuarios(context,_listadoUsuario,vistaDestino){
+  ListTileTheme vistaTileUsuarios(context,_listadoUsuario){
   return ListTileTheme(
     contentPadding: EdgeInsets.all(15),
     style: ListTileStyle.list,
     dense: true,
-    child: listado_Usuarios(context,_listadoUsuario,vistaDestino),
+    child: listado_Usuarios(context,_listadoUsuario),
   );
 }
 
-FutureBuilder<List<users>> listado_Usuarios(context,_listadoUsuario,vistaDestino){
+FutureBuilder<List<users>> listado_Usuarios(context,_listadoUsuario){
   return FutureBuilder<List<users>>(
     future: _listadoUsuario,
       builder: (context, snapshot) {
         
         if (snapshot.hasData){
           final List<users> listaUsuarios = snapshot.data ?? <users>[]; //user es la lista de usuarios
-          return vistaListaUsuarios(context,listaUsuarios,vistaDestino);
+          return vistaListaUsuarios(context,listaUsuarios);
         }
         
         else if (snapshot.hasError){ 
@@ -69,7 +119,7 @@ FutureBuilder<List<users>> listado_Usuarios(context,_listadoUsuario,vistaDestino
     );
   }
 
-  ListView vistaListaUsuarios(context, _listadoUsuario, vistaDestino) {
+  ListView vistaListaUsuarios(context, _listadoUsuario) {
     return ListView.builder(
       itemCount: _listadoUsuario.length,
       itemBuilder: (context, index) => 

@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 import '../components/body.dart';
 import '../components/header.dart';
 import '../conexion/DaoUser.dart';
+import '../models/users.dart';
 import '../styles/colors.dart';
 
-class addUser extends StatefulWidget {
-  addUser({Key? key}) : super(key: key);
+class addDuenio extends StatefulWidget {
+  addDuenio({Key? key}) : super(key: key);
 
   @override
-  State<addUser> createState() => _addUser();
+  State<addDuenio> createState() => _addDuenio();
 }
 
-class _addUser extends State<addUser> {
+class _addDuenio extends State<addDuenio> {
   bool _isObscure = true;
   final List<TextEditingController> inputs = [
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < 5; i++)
     TextEditingController()
   ];
   
@@ -27,11 +28,14 @@ class _addUser extends State<addUser> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget> [
-            textoInformativo("Agrega Un Nuevo Propietario", 30.0),
-            campoInformacion(30.0,"Usuario","Ingrese Su Username", "", inputs[0]),
+            textoInformativo("Agrega Un Dueño", 15.0),
+            campoInformacion(20.0,"Usuario","Ingrese Username", "", inputs[0]),
             password(15.0, "Password", "Ingrese Su Password", "", inputs[1]),
-            //campoInformacion(15.0,"Password","Ingrese Su Password", "", inputs[1]),
-            botonAceptacionUsuario(35.00, "Agregar Usuario",inputs,context),
+            //campoInformacion(0.0,"Password","Ingrese Password", "", inputs[1]),
+            campoInformacion(0.0,"Nombre","Ingrese Su Nombre", "", inputs[2]),
+            campoInformacion(0.0, "Telefono", "Ingrese Su Telefono", "", inputs[3]),
+            campoInformacion(0.0,"Direccion","Ingrese Su Direccion","",inputs[4]),
+            botonAceptacionUsuario(10.00, "Agregar Dueño",inputs,context),
           ],
         ),
       )
@@ -91,22 +95,54 @@ class _addUser extends State<addUser> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(25))),
         ),
-        onPressed: () {
-          if (cuerpo[0].text.length != 0 && cuerpo[1].text.length != 0){
-            Map json = {
+        onPressed: (){
+          if (cuerpo[0].text.length != 0 && cuerpo[1].text.length != 0 && cuerpo[2].text.length != 0 && cuerpo[3].text.length != 0 && cuerpo[4].text.length != 0){
+            var urlUsuario = "http://10.0.2.2:18081/user/add";
+            var urlDuenio = "http://10.0.2.2:18081/user/"+cuerpo[0].text.toString();
+            var urlAddDuenio = "http://10.0.2.2:18081/duenio/add";
+            var urlDestino = "listadoUsuarios";
+            
+            Map jsonAddUser = {
             'user': cuerpo[0].text,
             'password': cuerpo[1].text,
-            'tipoU': "empleado"
+            'tipoU': "propietario"
             };
-            var usuario = JsonEncoder().convert(json);
-            setState(() {
-              agregarUsuario(context,"http://10.0.2.2:18081/user/add", usuario);
+            var usuario = JsonEncoder().convert(jsonAddUser);
+            
+            Map jsonAddDuenio = {
+            'nombre': cuerpo[2].text,
+            'telefono': cuerpo[3].text,
+            'direccion': cuerpo[4].text,
+            "idUsuario": ""
+            };
+
+            setState((){
+              agregarDuenio(context,urlUsuario,usuario,urlDuenio,jsonAddDuenio,urlAddDuenio,urlDestino);
             });
           }else{
             toast("No se pudo registrar al usuario, complete todos los campos de texto");
           }
         },
       ),
+    );
+  }
+
+  FutureBuilder<users> listado_Usuarios(context,usuario){
+  return FutureBuilder<users>(
+    future: usuario,
+      builder: (context,snapshot){
+       if (snapshot.hasData){
+         print("hubo datos");
+          //final users listaUsuarios = snapshot.data ?? users;
+          //print(listaUsuarios.idUsuario); //user es la lista de usuarios
+        }
+        else if (snapshot.hasError){ 
+          return const Text("No se pudo cargar los datos con el servidor");
+        }
+        return const Center( 
+          child: CircularProgressIndicator()
+        ); 
+      }
     );
   }
 
