@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mvp/src/pages/on_boarding.dart';
-import 'package:mvp/src/styles/colors.dart';
+import 'package:conexion_veterinaria/pages/on_boarding.dart';
+import 'package:conexion_veterinaria/styles/colors.dart';
 import 'dart:ui' as ui;
 
 class SplashView extends StatefulWidget {

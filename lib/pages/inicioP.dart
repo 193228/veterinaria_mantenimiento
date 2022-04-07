@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mvp/src/styles/colors.dart';
-import 'package:mvp/src/widgets/mascotaList3.dart';
-import 'package:mvp/src/widgets/mascotasForm.dart';
+import 'package:conexion_veterinaria/styles/colors.dart';
+import 'package:conexion_veterinaria/widgets/mascotaList3.dart';
+import 'package:conexion_veterinaria/widgets/mascotasForm.dart';
 
 class inicioP extends StatefulWidget {
   inicioP({Key? key}) : super(key: key);

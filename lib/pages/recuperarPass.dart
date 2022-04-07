@@ -1,6 +1,6 @@
-import 'package:mvp/src/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../styles/colors.dart';
 
 class recuperarPass extends StatefulWidget {
   recuperarPass({Key? key}) : super(key: key);

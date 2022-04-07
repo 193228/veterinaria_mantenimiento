@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mvp/src/styles/colors.dart';
-import 'package:mvp/src/widgets/mascotaList3.dart';
-import 'package:mvp/src/widgets/mascotasForm.dart';
-import 'package:mvp/models/mascotas.dart';
+import 'package:conexion_veterinaria/widgets/mascotaList3.dart';
+import 'package:conexion_veterinaria/widgets/mascotasForm.dart';
+import 'package:conexion_veterinaria/models/mascotas.dart';
+import '../styles/colors.dart';
 //import 'package:mvp/src/widgets/formMascotas.dart';
 
 class mascotasC extends StatefulWidget {
-  mascotasC({Key? key}) : super(key: key);
-
+  mascotasC({Key? key, required this.id}) : super(key: key);
+  int? id;
   @override
-  State<mascotasC> createState() => _mascotasCState();
+  State<mascotasC> createState() => _mascotasCState(id: id!);
 }
 
 class _mascotasCState extends State<mascotasC> {
+  _mascotasCState({required this.id});
+  int id;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -46,8 +48,8 @@ class _mascotasCState extends State<mascotasC> {
         ),
       body:  TabBarView(
         children: [
-          SwipeList(id:1),
-          mascotasForm(id: 1, agregar: true, mascota: new Mascota(00, "nombre", "tipo", 00, "fechaIngreso", "razon"))
+          SwipeList(id:id),
+          mascotasForm(id: id, agregar: true, mascota: new Mascota(00, "nombre", "tipo", 00, "fechaIngreso", "razon"))
         ],
       )
       ),

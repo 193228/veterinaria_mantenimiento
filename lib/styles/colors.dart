@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class ColorsSelect {
 
-  static const Color txtBoMe = Color(0xFF4f1581);
+  static const Color txtBoHe = Color(0xFF4f1581);
   static const Color txtBoSubHe = Color(0xFF757575);
 
   static const Color paginator = Color(0xFFe0e0e0);

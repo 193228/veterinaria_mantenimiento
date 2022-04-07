@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:mvp/src/styles/colors.dart';
+import '../styles/colors.dart';
 
 class progressPainter extends CustomPainter{
   double valor=0;

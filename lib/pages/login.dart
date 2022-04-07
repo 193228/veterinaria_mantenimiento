@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:conexion_veterinaria/pages/inicioP.dart';
+import 'package:conexion_veterinaria/pages/mascotas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../styles/colors.dart';
@@ -19,8 +21,8 @@ class _LoginState extends State<Login> {
   final scaffoldkey = GlobalKey<ScaffoldState>();
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final vistaEmpleado='';
-  final vistaDuenio='';
+  final vistaEmpleado='mascotasEmpleados';
+  final vistaDuenio='mascotasDuenio';
   final ip='10.0.2.2';
 
   @override
@@ -40,7 +42,7 @@ class _LoginState extends State<Login> {
             child: Image.asset('assets/images/splash.png'),
           ),
         ],
-        backgroundColor: ColorsSelect.txtBoMe,
+        backgroundColor: ColorsSelect.txtBoHe,
       ),
       body: Container(
         width: size.width,
@@ -151,7 +153,8 @@ class _LoginState extends State<Login> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'register');
+                      Navigator.pushNamed(context, "listadoUsuarios");
+                      //Navigator.pushNamed(context, 'register');
                     },
                     child: const Text(
                       'Registrate',
@@ -181,16 +184,24 @@ void login(String user, String password) async {
     };
 
     var tipoUsuario;
+    var idUsuario;
+
+    var idDuenio;
+    var idEmpleado;
     var url= 'http://${ip}:18081/user/login';
     // var body =jsonEncode(datos);
-
     try {
       var response = await http.post(Uri.parse(url), headers: headers, body: body);
       if (response.statusCode==200) {
       var jsonResponse = json.decode(response.body);
       log('Response Status: ${response.statusCode}');
       log('Response Body: ${response.body}');
+
       tipoUsuario=jsonResponse["tipo"];
+      var url2 = "http://${ip}:18081/user/"+jsonResponse['user'];
+      var response2 = await http.get(Uri.parse(url2));
+      var jsonResponse2 = json.decode(response2.body);
+      idUsuario = jsonResponse2['idUsuario'];
       }
       else if(response.statusCode==500){
         SnackBar snackbar = SnackBar(
@@ -212,14 +223,27 @@ void login(String user, String password) async {
     }
 
     if (tipoUsuario!=null) {
-      if (tipoUsuario=='e') {
-        print("esto");
+      if (tipoUsuario=='empleado') {
+        print("es empleado "+idUsuario.toString());
         // Manda a vista de empleado
-        Navigator.pushNamed(context, vistaEmpleado);
+        Navigator.pushNamed(context, 'mascotasEmpleados');
       } else {
-        if (tipoUsuario=='u') {
+        if (tipoUsuario=='propietario') {
+        var url3 = "http://${ip}:18081/duenio/"+idUsuario.toString();
+        var response3 = await http.get(Uri.parse(url3));
+        var jsonResponse3 = json.decode(response3.body);
+        idDuenio = jsonResponse3['idDuenio'];
+        print("esto es idduenio -> "+idDuenio.toString());
         // Manda a vista de dueño
-        Navigator.pushNamed(context, vistaDuenio);
+        print("es dueno "+idDuenio.toString());
+        Navigator.push(context,MaterialPageRoute(builder: (context) => mascotasC(id: idDuenio)));
+        // Navigator.push(
+        //                   context,
+        //                   MaterialPageRoute(
+        //                       builder: (_) => mascotasC(
+                                
+        //                           id:));
+        //Navigator.pushNamed(context, 'listaCitas');
       }
       }
     }

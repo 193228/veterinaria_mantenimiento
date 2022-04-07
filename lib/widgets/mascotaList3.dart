@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mvp/src/styles/colors.dart';
-import 'package:mvp/src/pages/actualizarMascota.dart';
-import 'package:mvp/models/mascotas.dart';
+import 'package:conexion_veterinaria/styles/colors.dart';
+import 'package:conexion_veterinaria/pages/actualizarMascota.dart';
+import 'package:conexion_veterinaria/models/mascotas.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import '../styles/colors.dart';
 
 class SwipeList extends StatefulWidget {
   SwipeList({Key? key, required this.id}) : super(key: key);

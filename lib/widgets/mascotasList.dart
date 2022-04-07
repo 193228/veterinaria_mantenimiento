@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvp/src/styles/colors.dart';
+import 'package:conexion_veterinaria/styles/colors.dart';
 class SwipeList extends StatefulWidget {
   SwipeList({Key? key}) : super(key: key);
 
